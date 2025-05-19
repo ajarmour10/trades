@@ -1,0 +1,11 @@
+{
+  "name": "trade-in-monorepo",
+  "private": true,
+  "scripts": {
+    "setup": "npm --prefix api install && npm --prefix worker install && npm --prefix client install",
+    "test": "npm --prefix api test",
+    "dev:api": "npm --prefix api run dev",
+    "dev:worker": "npm --prefix worker run dev",
+    "dev:client": "npm --prefix client start"
+  }
+}
