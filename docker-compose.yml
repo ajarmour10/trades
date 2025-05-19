@@ -1,0 +1,31 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: trades
+    ports:
+      - '5432:5432'
+  api:
+    build: ./api
+    environment:
+      DATABASE_URL: postgres://user:password@postgres:5432/trades
+      JWT_SECRET: example
+    ports:
+      - '4000:4000'
+    depends_on:
+      - postgres
+  worker:
+    build: ./worker
+    environment:
+      DATABASE_URL: postgres://user:password@postgres:5432/trades
+    depends_on:
+      - postgres
+  client:
+    build: ./client
+    ports:
+      - '3000:3000'
+    depends_on:
+      - api
